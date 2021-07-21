@@ -1,8 +1,13 @@
 import numpy as np
 
 
-def make_dataset(n=100, d=10):
-    X = np.random.normal(n, d)
-    w = np.random.normal(1, d)
-    y = w @ X + np.random.normal(1, d) * .2
-    return X, y
+def make_dataset(n=100, d=1, eps=1):
+    X = np.random.randn(d, n)
+    w = np.random.randn(1, d)
+    y = w @ X
+    y += np.random.randn(1, n) * eps
+
+    X_test = np.linspace(X.min(), X.max(), num=1000).reshape(1, -1)
+    y_test = w @ X_test
+
+    return X, y, X_test, y_test, w
